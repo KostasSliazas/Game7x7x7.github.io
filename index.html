@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>7x7x7</title>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#110408">
+    <meta name="msapplication-navbutton-color" content="#110408">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body id="body">
+    <div id="wraper">
+        <h1 id="welcome" class="ax6">WELCOME</h1>
+
+        <div id="div" class="border sha">
+            <a id="inp" class="border sha1" onclick="opn();return false" href="#">inf</a>
+            <div id="info" class="border sha"><a id="out" class="border sha1" href="#" onclick="clo();return false">X</a>
+                <p><span>1x</span></p>
+                <p><span>2x</span></p>
+                <p><span>3x</span></p>
+                <p><span>4x</span></p>
+                <p><span>5x</span></p>
+                <p><span>6x</span></p>
+                <p><span>7x</span></p>
+                <p><span>8x</span></p>
+                <p><span>9x</span></p>
+                <p><span>?x</span>Magic dice multiplier x*</p>
+                <p id="more">*Magic dice multiplier for non line positions. All same lines x1000 + multiplier x.</p>
+            </div>
+            <h1>7x7x7</h1>
+            <p class="ewe topleft">multiplier x:<span id="multi">1</span></p>
+            <p class="ewe toprigth">spins:<span id="count">0</span></p>
+
+            <div id="spin777">
+                <div id="overl1"></div>
+                <div id="overl2"></div>
+                <div id="overl3"></div>
+                <div id="langas"></div>
+                <ul>
+                    <li id="a12"></li>
+                    <li id="a13"></li>
+                    <li id="a14"></li>
+                </ul>
+                <ul>
+                    <li id="b12"></li>
+                    <li id="b13"></li>
+                    <li id="b14"></li>
+                </ul>
+                <ul>
+                    <li id="c12"></li>
+                    <li id="c13"></li>
+                    <li id="c14"></li>
+                </ul>
+            </div>
+
+            <button id="btn" class="border sha1" type="button" autofocus onclick="btn();return false">SPIN!</button>
+            <p class="ewe" id="omgwin">WIN:<span id="kiek">0</span></p>
+            <p class="ewe">TOTAL WIN:<span id="suma">0</span></p>
+        </div>
+    </div>
+    <footer>
+        <span>designed by <a href="mailto:kostas.sliazas@gmail.com">Kostas Šliažas</a></span>
+    </footer>
+
+    <script type="text/javascript">
+        var state = 0,
+            su = 0,
+            count = 0,
+            sum = 0,
+            del = 0,
+            sum = 0;
+        var langas = document.getElementById("langas");
+
+        function btn() {
+            "use strict";
+            state = 1;
+            clearTimeout(del);
+            langas.style.backgroundImage = "url(../images/pos.png)";
+            langas.style.backgroundPosition = "-300px -0px";
+            var a1 = document.getElementById("a12").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+            var a2 = document.getElementById("a13").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+            var a3 = document.getElementById("a14").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+
+            var b1 = document.getElementById("b12").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+            var b2 = document.getElementById("b13").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+            var b3 = document.getElementById("b14").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+
+            var c1 = document.getElementById("c12").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+            var c2 = document.getElementById("c13").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+            var c3 = document.getElementById("c14").className = ("a" + (Math.floor(Math.random() * 9) + 1));
+
+            if (state === 1) {
+                sum = 0;
+                pos = 0;
+                document.getElementById("btn").setAttribute("disabled", true);
+
+                function areEqual() {
+                    var len = arguments.length;
+                    for (var i = 1; i < len; i++) {
+                        if (arguments[i] === null || arguments[i] !== arguments[i - 1])
+                            return false;
+                    }
+                    return true;
+                };
+                a1 = a1.substring(1);
+                a2 = a2.substring(1);
+                a3 = a3.substring(1);
+                b1 = b1.substring(1);
+                b2 = b2.substring(1);
+                b3 = b3.substring(1);
+                c1 = c1.substring(1);
+                c2 = c2.substring(1);
+                c3 = c3.substring(1);
+
+                var de = document.getElementById("multi").innerHTML;
+                de = parseInt(de);
+                var pos = [];
+                //--------------------------------centers x 10
+                if (areEqual(a1, a2, a3)) {
+                    sum += parseInt(a1) * 10;
+                    pos[0] = 1;
+                }
+                //---
+                if (areEqual(b1, b2, b3)) {
+                    sum += parseInt(b1) * 10;
+                    pos[1] = 2;
+                }
+                //---
+                if (areEqual(c1, c2, c3)) {
+                    sum += parseInt(c1) * 10;
+                    pos[2] = 3;
+                };
+                //X
+                if (areEqual(a1, b2, c3, c1, b2, a3)) {
+                    sum += parseInt(a1) * 100;
+                    pos[3] = 4;
+                };
+                //--------------------------------Center+top||bottom
+                //--_
+                if (areEqual(b1, b2, c3)) {
+                    sum += parseInt(b1) * de;
+                    pos[4] = 5;
+                };
+                //--^
+                if (areEqual(b1, b2, a3)) {
+                    sum += parseInt(b1) * de;
+                    pos[5] = 6;
+                };
+                //--------------------------------\/
+                //^-_
+                if (areEqual(a1, b2, c3)) {
+                    sum += parseInt(a1) * de;
+                    pos[6] = 7;
+                };
+                //_-^
+                if (areEqual(c1, b2, a3)) {
+                    sum += parseInt(c1) * de;
+                    pos[7] = 8;
+                };
+                //--------------------------------VA
+                //^-^
+                if (areEqual(b1, a2, b3)) {
+                    sum += parseInt(b1) * de;
+                    pos[8] = 9;
+                };
+                //_-_
+                if (areEqual(b1, c2, b3)) {
+                    sum += parseInt(b1) * de;
+                    pos[9] = 10;
+                };
+                //--------------------------------ALL
+                //All
+                if (areEqual(a1, a2, a3, b1, b2, b3, c1, c2, c3)) {
+                    sum += (parseInt(a1) * 1000) * de;
+                    pos[10] = 11;
+                }
+                //--------------------------------
+                ++count;
+                su += sum;
+                //langas.style.backgroundPosition="0 -100000px";
+                var d1 = document.getElementById("overl1");
+                d1.className = "ax1";
+                var d2 = document.getElementById("overl2");
+                d2.className = "ax2";
+                var d3 = document.getElementById("overl3");
+                d3.className = "ax3";
+                document.getElementById("omgwin").className = " ";
+                var del = setTimeout(function() {
+                    d1.classList.remove("ax1");
+                    d2.classList.remove("ax2");
+                    d3.classList.remove("ax3");
+                    document.getElementById("btn").removeAttribute("disabled");
+                    if (sum > 0) {
+                        document.getElementById("omgwin").className = "ax5";
+                    }
+                    if (count % 6 === 0 && count !== 0) {
+                        var d = Math.floor(Math.random() * 6) + 1;
+                        document.getElementById("b13").className = "ax4";
+                        document.getElementById("b13").innerHTML = d;
+                        document.getElementById("multi").innerHTML = d;
+                    }
+                    document.getElementById("kiek").innerHTML = sum;
+                    document.getElementById("suma").innerHTML = su;
+                    document.getElementById("count").innerHTML = count;
+
+                    if (pos[0]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -0";
+                    }
+                    if (pos[1]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -360px";
+                    }
+                    if (pos[2]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -180px";
+                    }
+                    if (pos[3]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -720px";
+                    }
+                    if (pos[4]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -1620px";
+                    }
+                    if (pos[5]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -1260px";
+                    }
+                    if (pos[6]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -540px";
+                    }
+                    if (pos[7]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -900px";
+                    }
+                    if (pos[8]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -1080px";
+                    }
+                    if (pos[9]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", -0 -1440px";
+                    }
+                    if (pos[10]) {
+                        langas.style.backgroundImage += ", url(./images/pos.png)";
+                        langas.style.backgroundPosition += ", 0 -10000px";
+                    }
+
+                }, 2000);
+
+                var arr = [];
+                while (arr.length < 3) {
+                    var randomnumber = ((Math.floor(Math.random() * 3) + 1) * 60);
+                    if (arr.indexOf(randomnumber) > -1) continue;
+                    arr[arr.length] = randomnumber;
+                }
+                document.getElementById("overl1").style.backgroundPosition = "0px " + arr[1] + "px";
+                document.getElementById("overl2").style.backgroundPosition = "0px " + arr[0] + "px";
+                document.getElementById("overl3").style.backgroundPosition = "0px " + arr[2] + "px";
+            };
+        };
+
+        function opn() {
+            document.getElementById("info").style.display = "block";
+        };
+
+        function clo() {
+            document.getElementById("info").style.display = "none";
+        };
+    </script>
+</body>
+
+</html>
