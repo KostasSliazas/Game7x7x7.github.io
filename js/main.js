@@ -9,6 +9,8 @@
   const d1 = document.getElementById('overl1')
   const d2 = document.getElementById('overl2')
   const d3 = document.getElementById('overl3')
+  const inp = document.getElementById('inp')
+  const info = document.getElementById('info')
 
   function btn () {
     state = 1
@@ -193,15 +195,18 @@
       d1.style.backgroundPosition = '0px ' + arr[1] + 'px'
       d2.style.backgroundPosition = '0px ' + arr[0] + 'px'
       d3.style.backgroundPosition = '0px ' + arr[2] + 'px'
-    };
-  };
+    }
+  }
 
   function opn () {
-    document.getElementById('info').style.display = 'block'
-  };
+    info.style.display = 'block'
+  }
 
   function clo () {
-    document.getElementById('info').style.display = 'none'
-  };
+    info.style.display = 'none'
+  }
+
   btns.addEventListener('click', btn)
-}())
+  info.addEventListener('click', clo)
+  inp.addEventListener('click', opn)
+})()
